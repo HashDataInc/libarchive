@@ -1,6 +1,6 @@
 Summary:        Library to create and read several different archive formats
 Name:           libarchive
-Version:        3.1.2
+Version:        3.2.1
 Release:        1
 License:        BSD
 Group:          Libraries
@@ -9,11 +9,21 @@ URL:            http:/libarchive.org/
 Requires:       glibc
 Requires:       zlib
 Requires:       bzip2
+Requires:       lzo
+Requires:       nettle
+Requires:       openssl
+Requires:       libxml2
+Requires:       expat
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gawk
 BuildRequires:  zlib-devel
-BuildRequires:  bzip2
+BuildRequires:  bzip2-devel
+BuildRequires:  lzo-devel
+BuildRequires:  nettle-devel
+BuildRequires:  openssl-devel
+BuildRequires:  libxml2-devel
+BuildRequires:  expat-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -52,6 +62,14 @@ Requires:	%{name} = %{version}-%{release}
 
 %description -n bsdcpio
 bsdcpio - cpio(1) implementation based on libarchive
+
+%package -n bsdcat
+Summary:	bsdcat - cat(1) implementation based on libarchive
+Group:		Applications/Archiving
+Requires:	%{name} = %{version}-%{release}
+
+%description -n bsdcat
+bsdcpio - cat(1) implementation based on libarchive
 
 %prep
 %setup -q
@@ -97,9 +115,17 @@ rm -fr %buildroot
 %attr(755,root,root) %{_bindir}/bsdcpio
 %doc %{_mandir}/man1/bsdcpio.1*
 
+%files -n bsdcat
+%attr(755,root,root) %{_bindir}/bsdcat
+%doc %{_mandir}/man1/bsdcat.1*
+
 %changelog
+* Mon Oct 3 2016 Zhanwei Wang <wang@hashdata.cn> - 3.2.1-1
+- Added dependencies
+- Added "bsdcat" package
 * Wed May 01 2013 Nikolai Lifanov <lifanov@mail.lifanov.com> - 3.1.2-1
 - Initial package
 - contrib/libarchive.spec by PLD team overhaul
 - Added "bsdcpio" package
 - Fixed build on x86_64 platform
+
