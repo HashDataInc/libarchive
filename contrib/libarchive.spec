@@ -84,6 +84,7 @@ mkdir -p %{buildroot}
 --infodir=%{_infodir} \
 --enable-shared=yes \
 --enable-static=yes \
+--without-lzma \
 | tee %{buildroot}/config.log
 make | tee %{buildroot}/make.log
 
